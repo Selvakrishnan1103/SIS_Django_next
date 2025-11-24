@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import parent
 
-# Register your models here.
+@admin.register(parent)
+class ParentAdmin(admin.ModelAdmin):
+
+    list_display = [ 'parent_name', 'profile_photo', 'parent_photo', 'created_at']
