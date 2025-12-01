@@ -4,7 +4,6 @@ from rest_framework import status
 from .models import student
 from .serializers import StudentSerializer
 
-# List + Create students
 class StudentListCreate(APIView):
     def get(self, request):
         students = student.objects.all()
@@ -19,7 +18,6 @@ class StudentListCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Retrieve + Update + Delete a single student
 class StudentDetail(APIView):
     def get_object(self, pk):
         try:
