@@ -1,50 +1,20 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import viewsets, permissions, filters
+from rest_framework.parsers import MultiPartParser, FormParser
 from .models import student
 from .serializers import StudentSerializer
 
-class StudentListCreate(APIView):
-    def get(self, request):
-        students = student.objects.all()
-        serializer = StudentSerializer(students, many=True)
-        return Response(serializer.data)
+class StudentViewSet(viewsets.ModelViewSet):
+    """
+    Full CRUD for Student model.
+    Supports: list, retrieve, create, update, partial_update, destroy.
+    """
+    queryset = student.objects.all().order_by('-id')
+    serializer_class = StudentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser]  # for file/image uploads
 
-    def post(self, request):
-        serializer = StudentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # Optional: add search & filtering (by first_name, admission_no, etc.)
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['first_name', 'last_name', 'admission_no', 'phone', 'email']
+    ordering_fields = ['id', 'admission_date', 'first_name']
 
-
-class StudentDetail(APIView):
-    def get_object(self, pk):
-        try:
-            return student.objects.get(pk=pk)
-        except student.DoesNotExist:
-            return None
-
-    def get(self, request, pk):
-        obj = self.get_object(pk)
-        if not obj:
-            return Response({"error": "Student not found"}, status=404)
-        serializer = StudentSerializer(obj)
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        obj = self.get_object(pk)
-        if not obj:
-            return Response({"error": "Student not found"}, status=404)
-        serializer = StudentSerializer(obj, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-
-    def delete(self, request, pk):
-        obj = self.get_object(pk)
-        if not obj:
-            return Response({"error": "Student not found"}, status=404)
-        obj.delete()
-        return Response({"message": "Deleted successfully"}, status=204)
