@@ -10,7 +10,7 @@ class student(models.Model):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=10, unique=True)
     dob = models.DateField()
-    admission_date = models.DateTimeField( null=True)
+    admission_date = models.DateTimeField(null=True,auto_now_add=True)
     vechile_type = models.CharField(max_length=20,null=True)
     route_name = models.CharField(max_length=20,null=True)
     vechile_no = models.CharField(max_length=20,null=True)
