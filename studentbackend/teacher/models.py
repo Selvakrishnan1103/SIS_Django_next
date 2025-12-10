@@ -3,7 +3,7 @@ from django.db import models
 class teacher(models.Model):
     teacher_image = models.ImageField(upload_to='teacher_image/',null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    first_name = models.CharField(max_length=20,null=True)
+    first_name = models.CharField(max_length=20)
     second_name = models.CharField(max_length=20,null=True)
     Role = models.CharField( choices=[('teacher','teacher'),('Accountant','Accountant'),('Librarian','Librarian')],null=True,max_length=209)
     Gender = models.CharField(max_length=10,null=True)

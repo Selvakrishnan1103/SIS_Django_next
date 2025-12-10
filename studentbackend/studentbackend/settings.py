@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'teacher',
     'corsheaders',
     'rest_framework',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +131,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files settings
   # your system folder
 
+  
+CORS_ORIGIN_ALLOW_ALL = True
