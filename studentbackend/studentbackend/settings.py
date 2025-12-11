@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'teacher',
     'corsheaders',
     'rest_framework',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
   # your system folder
 CORS_ALLOW_ALL_ORIGINS = True
 
+  
+CORS_ORIGIN_ALLOW_ALL = True
