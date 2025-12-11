@@ -6,6 +6,6 @@ router = DefaultRouter()
 router.register(r'students', StudentViewSet, basename='student')
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api-auth/', include(router.urls)),
 ]
 
