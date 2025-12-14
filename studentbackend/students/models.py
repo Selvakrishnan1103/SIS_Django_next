@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 class student(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
@@ -8,7 +9,7 @@ class student(models.Model):
     admission_no = models.CharField(max_length=20, unique=True)
     age = models.IntegerField(null=True,blank=True)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=10, unique=True)
+    phone = models.ImageField(max_length=10,validators=[MinLengthValidator(10)],unique=True,null=True)
     dob = models.DateField()
     admission_date = models.DateTimeField(null=True,auto_now_add=True)
     vechile_type = models.CharField(max_length=20,null=True)
@@ -16,7 +17,7 @@ class student(models.Model):
     vechile_no = models.CharField(max_length=20,null=True)
     dayscholer_or_hosteller = models.CharField(choices=[('Dayscholer', 'Dayscholer'), ('Hostel', 'Hosteller')], max_length=20,default='Dayscholer')
     room_no = models.CharField(max_length=10, null=True, blank=True)
-    bank_name = models.CharField(max_length=50, null=True, blank=True)
+    bank_name = models.CharField(max_length=50, null=True,validators=[MinLengthValidator(11)], blank=True)
     ifsc_code = models.CharField(max_length=11, null=True, blank=True,unique=True)
     account_no = models.IntegerField(unique=True,null=True, blank=True)
     branch = models.CharField(max_length=20, null=True, blank=True)

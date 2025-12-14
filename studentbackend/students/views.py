@@ -4,6 +4,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import student
 from .serializers import StudentSerializer
 from .filters import StudentFilter
+from .pagination import StudentPagination
+
 
 
 
@@ -11,6 +13,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset = student.objects.all().order_by('-admission_date')
     serializer_class = StudentSerializer
     permission_classes = [permissions.AllowAny]
+    pagination_class = StudentPagination 
   # change as needed
 
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 class teacher(models.Model):
     teacher_image = models.ImageField(upload_to='teacher_image/',null=True)
@@ -7,7 +8,7 @@ class teacher(models.Model):
     second_name = models.CharField(max_length=20,null=True)
     Role = models.CharField( choices=[('teacher','teacher'),('Accountant','Accountant'),('Librarian','Librarian')],null=True,max_length=209)
     Gender = models.CharField(max_length=10,null=True)
-    phone = models.IntegerField(null=True)
+    phone = models.IntegerField(null=True,unique=True,validators=[MinLengthValidator(10)])
     Blood_group = models.CharField(max_length=10,null=True)
     Marital_Status = models.CharField(max_length=20,null=True)
     Father_name = models.CharField(max_length=20,null=True)
@@ -24,7 +25,7 @@ class teacher(models.Model):
     Account_name = models.CharField(max_length=20,null=True)
     Account_Number = models.IntegerField(null=True)
     Bank_name = models.CharField(max_length=20,null=True)
-    IFSC_code = models.CharField(max_length=11,null=True)
+    IFSC_code = models.CharField(max_length=11,null=True,validators=[MinLengthValidator(11)])
     Branch_name = models.CharField(max_length=10,null=True)
     Use_School_bus = models.CharField(choices=[('Yes','Yes'),('NO','No')],null=True,max_length=10)
     Route = models.CharField(max_length=10,null=True)
